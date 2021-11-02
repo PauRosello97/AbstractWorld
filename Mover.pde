@@ -20,8 +20,9 @@ class Mover extends PVector {
     acceleration.add(force);
   }
 
+  // ASK TO KARL
   void separate (ArrayList<Human> movers) {
-    float desiredseparation = r*2;
+    float desiredseparation = r;
     PVector sum = new PVector();
     int count = 0;
     
@@ -50,6 +51,7 @@ class Mover extends PVector {
     velocity.limit(maxspeed);
     this.add(velocity);
     acceleration.mult(0);
+    velocity.mult(0.99);
   }
   
   void display() {

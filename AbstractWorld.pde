@@ -11,5 +11,6 @@ void setup(){
 
 void draw(){
   background(125);
+  world.update();
   world.draw();
 }

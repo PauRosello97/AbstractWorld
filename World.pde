@@ -16,18 +16,16 @@ class World{
     time = new Time();
   }
   
-  void draw(){
-    for(Food food : foods) food.draw();
-  
+  void update(){
     for (Human human : humans) {
       human.separate(humans);
       human.update(foods);
       human.borders();
-      human.display();
     }
   }
   
-  void update(){
-    
+  void draw(){
+    for(Food food : foods) food.draw();
+    for (Human human : humans) human.display();    
   }
 }

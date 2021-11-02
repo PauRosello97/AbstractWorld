@@ -18,13 +18,20 @@ class Human extends Mover{
   void update(ArrayList<Food> foods){
     setObjective();
     target = getTarget(foods);
-    println(target);
-    seek(target);
+    if(target!=null) seek(target);
     super.updateMover();
+    if(target!=null) checkObjective(foods);
   }
   
   void setObjective(){
     objective = FIND_FOOD;
+  }
+  
+  void checkObjective(ArrayList<Food> foods){
+    switch (objective){
+      case FIND_FOOD:
+        if(this.dist(target)<r/2) eatTargetFood(foods);
+    }
   }
   
   PVector getTarget(ArrayList<Food> foods){
@@ -33,6 +40,10 @@ class Human extends Mover{
         return findClosestFood(foods);
     }
     return null;
+  }
+  
+  void eatTargetFood(ArrayList<Food> foods){
+    foods.remove(target);
   }
   
   PVector findClosestFood(ArrayList<Food> foods){
