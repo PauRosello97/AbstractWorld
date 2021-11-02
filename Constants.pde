@@ -1,6 +1,7 @@
 /*   Objectives   */
-final int GET_FOOD = 0;
-final int REPRODUCE = 1;
+final int NO_OBJECTIVE = 0;
+final int FIND_FOOD = 1;
+final int REPRODUCE = 2;
 
 
 /*      Time      */

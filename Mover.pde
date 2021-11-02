@@ -6,10 +6,10 @@ class Mover extends PVector {
   float maxforce;    
   float maxspeed;    
 
-  Mover(float _x, float _y) {
-    x = _x;
-    y= _y;
-    r = 12;
+  Mover() {
+    x = random(width);
+    y = random(height);
+    r = 20;
     maxspeed = 3;
     maxforce = 0.2;
     acceleration = new PVector(0, 0);
@@ -20,7 +20,7 @@ class Mover extends PVector {
     acceleration.add(force);
   }
 
-  void separate (ArrayList<Mover> movers) {
+  void separate (ArrayList<Human> movers) {
     float desiredseparation = r*2;
     PVector sum = new PVector();
     int count = 0;
@@ -29,7 +29,6 @@ class Mover extends PVector {
       float d = PVector.dist(this, other);
       
       if ((d > 0) && (d < desiredseparation)) {
-        
         PVector diff = PVector.sub(this, other);
         diff.normalize();
         diff.div(d);        
@@ -39,7 +38,6 @@ class Mover extends PVector {
     }
     
     if (count > 0) {
-      
       sum.setMag(maxspeed);
       PVector steer = PVector.sub(sum, velocity);
       steer.limit(maxforce);
@@ -47,15 +45,14 @@ class Mover extends PVector {
     }
   }
 
-  void update() {
+  void updateMover() {
     velocity.add(acceleration);
     velocity.limit(maxspeed);
     this.add(velocity);
     acceleration.mult(0);
   }
-
+  
   void display() {
-    fill(175);
     ellipse(x, y, r, r);
   }
   
