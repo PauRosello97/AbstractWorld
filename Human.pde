@@ -5,6 +5,7 @@ class Human extends Mover{
   int objective;
   int energy;
   boolean sex;
+  int RADIUS_UNIT = 20;
   
   Human(float _hue, float _x, float _y, int e){
     super(_x, _y);
@@ -16,13 +17,14 @@ class Human extends Mover{
     
   void display() {
     fill(hue, 100, 100);
+    noStroke();
     super.display();
   }
   
-  void update(ArrayList<Food> foods, ArrayList<Human> humans){
-    r = energy*5;
+  void update(ArrayList<Food> foods, ArrayList<Human> humans, int season){
+    r = energy*RADIUS_UNIT;
     setObjective();
-    target = getTarget(foods, humans);
+    target = getTarget(foods, humans, season);
     if(target!=null) seek(target);
     super.updateMover();
     if(target!=null) checkObjective(foods, humans);
@@ -43,12 +45,12 @@ class Human extends Mover{
     }
   }
   
-  PVector getTarget(ArrayList<Food> foods, ArrayList<Human> humans){
+  PVector getTarget(ArrayList<Food> foods, ArrayList<Human> humans, int season){
     switch (objective){
       case FIND_FOOD:
         return findClosestFood(foods);
       case REPRODUCE:
-        return findBestPartner(humans);
+        return findBestPartner(humans, season);
     }
     return null;
   }
@@ -93,7 +95,7 @@ class Human extends Mover{
     return targetFood;
   }
   
-  PVector findBestPartner(ArrayList<Human> humans){
+  PVector findBestPartner(ArrayList<Human> humans, int season){
     int bestScore = 0;
     Human targetPartner = null;
     for(Human human : humans){
@@ -101,7 +103,7 @@ class Human extends Mover{
       if(this != human){
         if(human.sex != sex){
           score += 1;
-          if(human.hue == hue) score +=3;    
+          if(human.hue == hue && season!=SPRING) score +=3;    
           score += human.energy;
         }
         

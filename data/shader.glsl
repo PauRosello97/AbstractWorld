@@ -6,7 +6,7 @@ precision mediump float;
 
 uniform float time;
 uniform vec2 resolution;
-uniform int[] points;
+uniform vec2[] points;
 
 void main( void ) {
 	vec2 position = ( gl_FragCoord.xy / resolution.xy );
