@@ -2,18 +2,22 @@ class Mover extends PVector {
 
   PVector velocity;
   PVector acceleration;
+  int age = 0;
   float r;
-  float maxforce;    
-  float maxspeed;    
+  float maxforce;   
 
-  Mover() {
-    x = random(width);
-    y = random(height);
+  Mover(float _x, float _y) {
+    x = _x;
+    y = _y;
     r = 20;
-    maxspeed = 3;
     maxforce = 0.2;
     acceleration = new PVector(0, 0);
     velocity = new PVector(0, 0);
+  }
+  
+  float maxSpeed(){
+    if(age>5) return 3; 
+    return 3+(5-age)/2;
   }
 
   void applyForce(PVector force) {
@@ -39,7 +43,7 @@ class Mover extends PVector {
     }
     
     if (count > 0) {
-      sum.setMag(maxspeed);
+      sum.setMag(maxSpeed());
       PVector steer = PVector.sub(sum, velocity);
       steer.limit(maxforce);
       applyForce(steer);
@@ -48,7 +52,7 @@ class Mover extends PVector {
 
   void updateMover() {
     velocity.add(acceleration);
-    velocity.limit(maxspeed);
+    velocity.limit(maxSpeed());
     this.add(velocity);
     acceleration.mult(0);
     velocity.mult(0.99);
@@ -61,7 +65,7 @@ class Mover extends PVector {
   void seek(PVector target) {
     PVector desired = PVector.sub(target,this);
     desired.normalize();
-    desired.mult(maxspeed/2);
+    desired.mult(maxSpeed()/2);
     PVector steer = PVector.sub(desired,velocity);
 
     steer.limit(maxforce/2);

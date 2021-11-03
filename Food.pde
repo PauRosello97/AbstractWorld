@@ -1,8 +1,8 @@
 class Food extends PVector{
   
-  Food(){
-    x = random(width);
-    y = random(height);
+  Food(float _x, float _y){
+    x = _x;
+    y = _y;
   }
   
   void draw(){

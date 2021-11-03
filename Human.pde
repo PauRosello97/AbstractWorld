@@ -3,12 +3,15 @@ class Human extends Mover{
   float hue;
   PVector target;
   int objective;
-  int energy = 5;
+  int energy;
+  boolean sex;
   
-  Human(float _hue){
-    super();
+  Human(float _hue, float _x, float _y, int e){
+    super(_x, _y);
     target = new PVector(width/2, height/2);
     hue = _hue;
+    sex = randomBool();
+    energy = e;
   }
     
   void display() {
@@ -36,7 +39,7 @@ class Human extends Mover{
         if(this.dist(target)<r/2) eatTargetFood(foods);
         break;
       case REPRODUCE:
-        if(this.dist(target)<r/2) reproduce(humans);
+        if(this.dist(target)<r) reproduce(humans);
     }
   }
   
@@ -56,12 +59,24 @@ class Human extends Mover{
   }
   
   void reproduce(ArrayList<Human> humans){
-    Human targetPartner = new Human(0);
+    Human targetPartner = new Human(0, x, y, 0);
     for(Human human : humans) if(target == human) targetPartner = human;
     if(energy>5 && targetPartner.energy>5){
-      energy -= 3;
-      targetPartner.energy -= 3;
-      humans.add(new Human(hue));
+      energy -= 2;
+      targetPartner.energy -= 2;
+      
+      float childHue;
+      if(random(1)>0.98){
+        // Mutation
+        childHue = random(360);
+      }else if(abs(hue-targetPartner.hue)==180){
+        float extra = randomBool() ? 180 : 0;  
+        childHue = (hue+targetPartner.hue)/2 + extra;
+      }else{
+        // TODO: Get hue from both sides of the wheel
+        childHue = (hue+targetPartner.hue)/2;
+      }
+      humans.add(new Human(childHue, x, y, 2));
     }
   }
   
@@ -82,16 +97,30 @@ class Human extends Mover{
     int bestScore = 0;
     Human targetPartner = null;
     for(Human human : humans){
-      int score = 0;
+      int score = 1;
       if(this != human){
-        if(human.hue == hue) score +=3;    
+        if(human.sex != sex){
+          score += 1;
+          if(human.hue == hue) score +=3;    
+          score += human.energy;
+        }
+        
         if(score>bestScore){
           bestScore = score;
           targetPartner = human;
         }
       }
     }
-    return targetPartner;
+    return bestScore > 0 ? targetPartner : null;
+  }
+  
+  void newDay(){
+    energy --;  
+    age ++;
+  }
+  
+  boolean isDead(){
+    return energy<1;  
   }
   
 }

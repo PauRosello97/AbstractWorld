@@ -14,3 +14,7 @@ void draw(){
   world.update();
   world.draw();
 }
+
+boolean randomBool(){
+  return random(1) < 0.5;
+}

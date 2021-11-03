@@ -8,11 +8,11 @@ class World{
     time = new Time();
     foods = new ArrayList<Food>();    
     humans = new ArrayList<Human>();
-    for(int i=0; i<4; i++) foods.add(new Food());
-    humans.add(new Human(0));
-    humans.add(new Human(0));
-    humans.add(new Human(180));
-    humans.add(new Human(180));
+    for(int i=0; i<4; i++) foods.add(new Food(random(width), random(height)));
+    humans.add(new Human(0, random(width), random(height),5));
+    humans.add(new Human(0, random(width), random(height),5));
+    humans.add(new Human(180, random(width), random(height),5));
+    humans.add(new Human(180, random(width), random(height),5));
   }
   
   void update(){
@@ -35,9 +35,17 @@ class World{
   }
   
   void newDay(){
-    foods.add(new Food());  
-    foods.add(new Food());  
-    foods.add(new Food());  
-    foods.add(new Food());  
+    int newFood = humans.size()*int(random(0.5,1.5));
+    for(int i=0; i<6; i++) foods.add(new Food(random(width), random(height)));  
+    
+    Iterator<Human> it = humans.iterator();
+    while(it.hasNext()){
+      Human human = it.next();
+      human.newDay();
+      if(human.isDead()){
+        foods.add(new Food(human.x, human.y));
+        it.remove();
+      }
+    }
   }
 }
