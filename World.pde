@@ -3,15 +3,13 @@ class World{
   ArrayList<Human> humans;
   ArrayList<Food> foods; 
   final int INITIAL_HUMANS = 4;
-  PShader shader;
   boolean SHADER_MODE = false;
   int STARTING_AGENTS = 10;
   int season = SUMMER;
   //int blendMode = SUBTRACT;
   
   World(){
-    shader = loadShader("shader.glsl");
-    shader.set("resolution", float(width), float(height));
+    
     time = new Time();
     foods = new ArrayList<Food>();    
     humans = new ArrayList<Human>();
@@ -20,18 +18,21 @@ class World{
     //blendMode(SUBTRACT);
   }
   
-  void draw(){
-    if(SHADER_MODE){
-      /*
-      PVector[] points = [];
-      shader.set("points", points);
-      shader(shader);
-      rect(0,0,width,height);
-      */
-    }else{
-      //for(Food food : foods) food.draw();
-      for (Human human : humans) human.display();   
+  void draw(PGraphics g){
+    //for(Food food : foods) food.draw();
+    //for (Human human : humans) human.display();   
+    for (int i=0; i<humans.size(); i++){
+      println(i);
+      float pX = map(humans.get(i).x, 0, width, 0, 255);
+      float pY = map(humans.get(i).y, 0, height, 0, 255);
+      g.set(0, i, color(pX, pY ,0 ,0));
+      //g.set(i, 0, color(1.015,.015,0,0));
     }
+  }
+  
+  void draw(){
+    //for(Food food : foods) food.draw();
+    for (Human human : humans) human.display();   
   }
   
   void update(){

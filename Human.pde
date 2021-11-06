@@ -5,7 +5,7 @@ class Human extends Mover{
   int objective;
   int energy;
   boolean sex;
-  int RADIUS_UNIT = 20;
+  int RADIUS_UNIT = 5;
   
   Human(float _hue, float _x, float _y, int e){
     super(_x, _y);
