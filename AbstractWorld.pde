@@ -14,7 +14,7 @@ void setup(){
   shader = loadShader("shader.glsl");
   
   shader.set("resolution", float(width), float(height));
-  g = createGraphics(N_AGENTS, 2);
+  g = createGraphics(N_AGENTS, 3);
  
 }
 
@@ -24,10 +24,10 @@ void draw(){
   
   g.beginDraw();
   //g.background(255);
-  world.draw(g);
-  //g.set(0, 1, color(10, 50 ,0 ,0));
-  g.set(0, 2, color(127, 127 ,0 ,0));
-  //g.set(1, 0, color(20, 20 ,0 ,0));
+  //world.draw(g);
+  g.set(0, 0, color(0., 0., 0, 0));
+  g.set(0, 1, color(30., 30., 0, 0));
+  g.set(0, 2, color(10., 20., 0, 0));
   g.endDraw();
   
   shader.set("agentList", g);
