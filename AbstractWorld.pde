@@ -10,7 +10,7 @@ void setup(){
   shader = loadShader("shader.glsl");
   
   shader.set("resolution", float(width), float(height));
-  g = createGraphics(1, 4);
+  g = createGraphics(4, 1);
  
 }
 
@@ -25,10 +25,11 @@ void draw(){
   g.pixels[3] = color(20., 20.);  
   g.updatePixels();
   */
-  g.set(0, 0, color(0., 0., 0, 0));
-  g.set(0, 1, color(20., 0., 0, 0));
-  g.set(0, 2, color(0., 20., 0, 0));
-  g.set(0, 3, color(20., 20., 0, 0));
+  float t = millis() * 0.001;
+  g.set(0, 0, color(100+50*sin(t), 100., 0, 0));
+  g.set(1, 0, color(120., 100., 0, 0));
+  g.set(2, 0, color(100., 120., 0, 0));
+  g.set(3, 0, color(120., 120., 0, 0));
   g.endDraw();
   
   shader.set("agentList", g);
