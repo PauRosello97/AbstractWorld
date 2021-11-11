@@ -1,22 +1,23 @@
 import java.util.*;
 
-PGraphics g;
+PGraphics gra;
 PShader shader;
 int N_AGENTS = 20;
 
 void setup(){
-  size(900, 900, P2D);
+  size(900, 900, P3D);
+  
+  ((PGraphicsOpenGL)g).textureSampling(2);
   
   shader = loadShader("shader.glsl");
-  
   shader.set("resolution", float(width), float(height));
-  g = createGraphics(4, 1);
+  gra = createGraphics(4, 1);
  
 }
 
 void draw(){
   
-  g.beginDraw();
+  gra.beginDraw();
   /* THIS VERSION HAS THE SAME RESULT
   g.loadPixels();
   g.pixels[0] = color(0., 0.);
@@ -26,13 +27,13 @@ void draw(){
   g.updatePixels();
   */
   float t = millis() * 0.001;
-  g.set(0, 0, color(100+50*sin(t), 100., 0, 0));
-  g.set(1, 0, color(120., 100., 0, 0));
-  g.set(2, 0, color(100., 120., 0, 0));
-  g.set(3, 0, color(120., 120., 0, 0));
-  g.endDraw();
+  gra.set(0, 0, color(100, 100., 255, 0));
+  gra.set(1, 0, color(120., 100., 255, 255));
+  gra.set(2, 0, color(100., 120., 0, 170));
+  gra.set(3, 0, color(120., 120., 0., 255));
+  gra.endDraw();
   
-  shader.set("agentList", g);
+  shader.set("agentList", gra);
   
   shader(shader);
   noStroke();

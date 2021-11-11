@@ -1,3 +1,5 @@
+#version 150
+
 #define PROCESSING_COLOR_SHADER
 
 #ifdef GL_ES
@@ -16,7 +18,7 @@ void main( void ) {
     for(int i=0; i<4; i++){
         vec4 agent = texture2D(agentList, vec2(i/4., 0));
         vec2 aP = vec2(agent.r, agent.g);
-        if(distance(aP, position)<0.01) c = vec4(1., 0., 0., 1.);
+        if(distance(aP, position)<0.01) c = vec4(agent.b, agent.a, 0., 1.);
     }
 	
 	gl_FragColor = vec4(c);
