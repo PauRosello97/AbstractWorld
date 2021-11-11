@@ -11,10 +11,7 @@ uniform uint agentCount;
 
 void main( void ) {
 	vec2 position = ( gl_FragCoord.xy / resolution.xy );
-    //vec2 position = gl_FragCoord.xy;
 	vec4 c = vec4(0., 0., 0., 1.);
-
-    //for(int i=0; i<agentCount; i++){
 		    
     for(int i=0; i<20; i++){
         vec4 agent = texture2D(agentList, vec2(0, i/20.));

@@ -6,7 +6,6 @@ class World{
   boolean SHADER_MODE = false;
   int STARTING_AGENTS = 10;
   int season = SUMMER;
-  //int blendMode = SUBTRACT;
   
   World(){
     
@@ -15,18 +14,14 @@ class World{
     humans = new ArrayList<Human>();
     for(int i=0; i<STARTING_AGENTS; i++) foods.add(new Food(random(width), random(height)));
     for(int i=0; i<STARTING_AGENTS; i++) humans.add(new Human((180*i)%360, random(width), random(height),5));
-    //blendMode(SUBTRACT);
   }
   
   void draw(PGraphics g){
-    //for(Food food : foods) food.draw();
-    //for (Human human : humans) human.display();   
     for (int i=0; i<humans.size(); i++){
       println(i);
       float pX = map(humans.get(i).x, 0, width, 0, 255);
       float pY = map(humans.get(i).y, 0, height, 0, 255);
       g.set(0, i, color(pX, pY ,0 ,0));
-      //g.set(i, 0, color(1.015,.015,0,0));
     }
   }
   
@@ -59,9 +54,6 @@ class World{
     int newFood = int(humans.size()*random(0.9,1.6));
     newFood = newFood > MAX_NEW_FOOD ? MAX_NEW_FOOD : newFood;
     for(int i=0; i<newFood; i++) foods.add(new Food(random(width), random(height)));  
-    
-    //blendMode = blendMode == SUBTRACT ? ADD : SUBTRACT;
-    //blendMode(blendMode);
     
     Iterator<Human> it = humans.iterator();
     while(it.hasNext()){
