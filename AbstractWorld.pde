@@ -4,7 +4,7 @@ World world;
 Time time;
 PGraphics gra;
 PShader shader;
-int N_AGENTS = 20;
+int MAX_AGENTS = 20;
 
 void setup(){
   size(900, 900, P3D);
@@ -14,7 +14,7 @@ void setup(){
   
   shader = loadShader("shader.glsl");
   shader.set("resolution", float(width), float(height));
-  gra = createGraphics(1, N_AGENTS);
+  gra = createGraphics(1, MAX_AGENTS);
  
 }
 
@@ -25,6 +25,8 @@ void draw(){
   gra.endDraw();
   
   shader.set("agentList", gra);
+  shader.set("maxAgents", MAX_AGENTS);
+  shader.set("nAgents", world.getNAgents());
   
   shader(shader);
   noStroke();

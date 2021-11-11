@@ -8,7 +8,6 @@ class World{
   int season = SUMMER;
   
   World(){
-    
     time = new Time();
     foods = new ArrayList<Food>();    
     humans = new ArrayList<Human>();
@@ -18,10 +17,13 @@ class World{
   
   void draw(PGraphics g){
     for (int i=0; i<humans.size(); i++){
-      println(i);
-      float pX = map(humans.get(i).x, 0, width, 0, 255);
-      float pY = map(humans.get(i).y, 0, height, 0, 255);
-      g.set(0, i, color(pX, pY ,0 ,0));
+      //println(i);
+      Human human = humans.get(i);
+      float pX = map(human.x, 0, width, 0, 255);
+      float pY = map(human.y, 0, height, 0, 255);
+      float h = map(human.hue, 0, 360, 0, 255);
+      //println(h);
+      g.set(0, i, color(pX, pY, h, 0));
     }
   }
   
@@ -45,8 +47,11 @@ class World{
         newDay();
         print(".");
         break;
-        
     }
+  }
+  
+  int getNAgents(){
+    return humans.size();  
   }
   
   void newDay(){
