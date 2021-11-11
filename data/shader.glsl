@@ -16,8 +16,8 @@ void main( void ) {
 
     //for(int i=0; i<agentCount; i++){
 		    
-    for(int i=0; i<4; i++){
-        vec4 agent = texture2D(agentList, vec2(0, i));
+    for(int i=0; i<20; i++){
+        vec4 agent = texture2D(agentList, vec2(0, i/20.));
         vec2 aP = vec2(agent.r, agent.g);
         if(distance(aP, position)<0.01) c += vec4(1., 0., 0., 1.);
     }
