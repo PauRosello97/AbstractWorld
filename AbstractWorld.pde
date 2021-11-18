@@ -3,19 +3,21 @@ import java.util.*;
 World world;
 Time time;
 PGraphics gra;
+PGraphics worldCanvas;
 PShader shader;
-int MAX_AGENTS = 20;
+final int MAX_AGENTS = 20;
+final int WORLD_RES = 50;
+boolean recording = false;
+PImage cat;
 
 void setup(){
-  size(900, 900, P3D);
-  
+  size(900, 900, P2D);
   ((PGraphicsOpenGL)g).textureSampling(2);
+  
   world = new World();
   
   shader = loadShader("shader.glsl");
-  shader.set("resolution", float(width), float(height));
   gra = createGraphics(1, MAX_AGENTS);
- 
 }
 
 void draw(){
@@ -32,7 +34,7 @@ void draw(){
   noStroke();
   rect(0, 0, width, height);  
  
-  world.draw();
+  //world.draw();
 }
 
 boolean randomBool(){
