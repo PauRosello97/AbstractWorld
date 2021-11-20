@@ -2,7 +2,7 @@ import java.util.*;
 
 World world;
 Time time;
-PGraphics gra;
+PGraphics gra, decimals;
 PGraphics worldCanvas;
 PShader shader;
 final int MAX_AGENTS = 20;
@@ -18,15 +18,19 @@ void setup(){
   
   shader = loadShader("shader.glsl");
   gra = createGraphics(1, MAX_AGENTS);
+  decimals = createGraphics(1, MAX_AGENTS);
 }
 
 void draw(){
   world.update();
   gra.beginDraw();
-  world.draw(gra);
+  decimals.beginDraw();
+  world.draw(gra, decimals);
+  decimals.endDraw();
   gra.endDraw();
   
   shader.set("agentList", gra);
+  shader.set("decimals", decimals);
   shader.set("maxAgents", MAX_AGENTS);
   shader.set("nAgents", world.getNAgents());
   

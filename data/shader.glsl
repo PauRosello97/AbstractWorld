@@ -7,6 +7,7 @@ precision mediump float;
 uniform float time;
 uniform vec2 resolution;
 uniform sampler2D agentList;
+uniform sampler2D decimals;
 uniform uint agentCount;
 uniform int maxAgents;
 uniform int nAgents;
@@ -22,11 +23,11 @@ vec3 hsv2rgb(vec3 c)
 void main( void ) {
 	vec2 position = ( gl_FragCoord.xy / resolution.xy );
 	vec3 c = vec3(0.);
-    
-		    
+    		    
     for(int i=0; i<nAgents; i++){
         vec4 agent = texture2D(agentList, vec2(0, i/float(maxAgents)));
-        vec2 aP = vec2(agent.r, agent.g);
+        vec4 dec = texture2D(decimals, vec2(0, i/float(maxAgents)));
+        vec2 aP = vec2(agent.r+dec.r/255., agent.g+dec.g/255.);
         float hue = agent.b;
         vec3 aC = hsv2rgb(vec3(hue, 1., 1.));
 

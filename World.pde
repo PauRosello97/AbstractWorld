@@ -15,15 +15,20 @@ class World{
     for(int i=0; i<STARTING_AGENTS; i++) humans.add(new Human((180*i)%360, random(width), random(height),5));
   }
   
-  void draw(PGraphics g){
+  void draw(PGraphics agents, PGraphics decimals){
     for (int i=0; i<humans.size(); i++){
-      //println(i);
       Human human = humans.get(i);
       float pX = map(human.x, 0, width, 0, 255);
       float pY = map(human.y, 0, height, 0, 255);
+      
+      float decX = pX-int(pX);
+      float decY = pY-int(pY);
+      decX = map(decX, 0, 1, 0, 255);
+      decY = map(decY, 0, 1, 0, 255);
+      
       float h = map(human.hue, 0, 360, 0, 255);
-      //println(h);
-      g.set(0, i, color(pX, pY, h, 0));
+      agents.set(0, i, color(pX, pY, h, 0));
+      decimals.set(0, i, color(decX, decY, 0, 0));
     }
   }
   
@@ -37,7 +42,7 @@ class World{
       Human human = humans.get(i);
       human.separate(humans);
       human.update(foods, humans, season);
-      human.borders();
+      //human.borders();
     }
     switch (time.update()){
       case NEW_SEASON:
