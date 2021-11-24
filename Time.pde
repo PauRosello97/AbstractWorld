@@ -6,7 +6,7 @@ class Time{
   
   final int HOUR_DURATION = 1000;
   final int DAY_DURATION = HOUR_DURATION*24;
-  final int MONTH_DURATION = DAY_DURATION*30;
+  final int MONTH_DURATION = DAY_DURATION*2;
   final int SEASON_DURATION = MONTH_DURATION*3;
   
   Time(){

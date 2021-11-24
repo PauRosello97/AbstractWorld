@@ -5,7 +5,7 @@ class World{
   final int INITIAL_HUMANS = 4;
   boolean SHADER_MODE = false;
   int STARTING_AGENTS = 10;
-  int season = SUMMER;
+  int season = WINTER;
   
   World(){
     time = new Time();
@@ -42,11 +42,11 @@ class World{
       Human human = humans.get(i);
       human.separate(humans);
       human.update(foods, humans, season);
-      //human.borders();
     }
     switch (time.update()){
       case NEW_SEASON:
         season = (season+1)%4;
+        newSeason();
       case NEW_DAY:
         newDay();
       case NEW_HOUR:
@@ -60,19 +60,30 @@ class World{
   }
   
   void newHour(){
-    int nFood = int(random(2));
+    int nFood = int(random(4));
     for(int i=0; i<nFood; i++) foods.add(new Food());  
   }
   
   void newDay(){    
     Iterator<Human> it = humans.iterator();
+    
+    log(NEW_DAY);
+    int i = 0;
     while(it.hasNext()){
+      i++;
       Human human = it.next();
       human.newDay();
       if(human.isDead()){
         foods.add(new Food(human.x, human.y));
         it.remove();
+        log("RIP n" + i + " with color " + int(human.hue) + ". " + humans.size() + " humans alive.");
       }
     }
+  }
+  
+  void newSeason(){
+    String[] seasonNames = {"WINTER", "SPRING", "SUMMER", "FALL"};
+    log("---------------------------------------");
+    log("[[ " + seasonNames[season] + " ARRIVED ]]");
   }
 }

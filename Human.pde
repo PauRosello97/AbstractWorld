@@ -80,7 +80,7 @@ class Human extends Mover{
         // TODO: Get hue from both sides of the wheel
         childHue = (hue+targetPartner.hue)/2;
       }
-      log(BIRTH);
+      log(int(hue) + " and " + int(targetPartner.hue) + " created " + int(childHue) + ". The population is now " + humans.size() + ".");
       humans.add(new Human(childHue, x, y, 2));
     }
   }
@@ -106,8 +106,9 @@ class Human extends Mover{
       if(this != human){
         if(human.sex != sex){
           score += 1;
-          if(human.hue == hue && season!=SPRING) score +=3;    
+          if(season!=SPRING && human.hue == hue) score +=3;    
           score += human.energy;
+          if(season == WINTER && abs(human.hue-hue)>10) score = 0;
         }
         
         if(score>bestScore){

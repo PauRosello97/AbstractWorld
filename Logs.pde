@@ -1,7 +1,6 @@
-// 1, 2 and 3 reserved for NEX_DAY, NEW_MONTH and NEW_SEASON
+ // 1, 2 and 3 reserved for NEX_DAY, NEW_MONTH and NEW_SEASON
 final int OPPOSITE_COLORS_LOVE = 4;
 final int MUTATION = 5;
-final int BIRTH = 6;
 
 void log(int log){
   if(LOGGING){
@@ -12,11 +11,17 @@ void log(int log){
         break; 
       case MUTATION:
         message = "Mutation";
-        break;     
-      case BIRTH:
-        message = "A new Human is born";
-        break;
+        break;  
+      case NEW_DAY:
+        message = "Good morning!";
+        break;      
     }
     println(message);
   }  
+}
+
+void log(String log){
+  if(LOGGING){
+    println(log);  
+  }
 }

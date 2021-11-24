@@ -72,11 +72,4 @@ class Mover extends PVector {
     applyForce(steer);
   }
 
-  // Wraparound
-  void borders() {
-    if (x < -r) x = width+r;
-    if (y < -r) y = height+r;
-    if (x > width+r) x = -r;
-    if (y > height+r) y = -r;
-  }
 }
