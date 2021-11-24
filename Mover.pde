@@ -55,7 +55,7 @@ class Mover extends PVector {
     velocity.limit(maxSpeed());
     this.add(velocity);
     acceleration.mult(0);
-    velocity.mult(0.99);
+    velocity.mult(0.999);
   }
   
   void display() {
@@ -68,7 +68,7 @@ class Mover extends PVector {
     desired.mult(maxSpeed()/2);
     PVector steer = PVector.sub(desired,velocity);
 
-    steer.limit(maxforce/2);
+    steer.limit(maxforce/3);
     applyForce(steer);
   }
 

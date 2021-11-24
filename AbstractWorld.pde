@@ -7,8 +7,10 @@ PGraphics worldCanvas;
 PShader shader;
 final int MAX_AGENTS = 20;
 final int WORLD_RES = 50;
-boolean recording = false;
 PImage cat;
+
+final boolean DEBUGGING = false;
+final boolean LOGGING = true;;
 
 void setup(){
   size(900, 900, P2D);
@@ -22,23 +24,30 @@ void setup(){
 }
 
 void draw(){
+  // Update
   world.update();
-  gra.beginDraw();
-  decimals.beginDraw();
-  world.draw(gra, decimals);
-  decimals.endDraw();
-  gra.endDraw();
   
-  shader.set("agentList", gra);
-  shader.set("decimals", decimals);
-  shader.set("maxAgents", MAX_AGENTS);
-  shader.set("nAgents", world.getNAgents());
-  
-  shader(shader);
-  noStroke();
-  rect(0, 0, width, height);  
- 
-  //world.draw();
+  // Draw
+  if(DEBUGGING || keyPressed){
+    colorMode(HSB, 360, 100, 100);
+    background(0, 0, 100);
+    world.draw();
+  }else{
+    gra.beginDraw();
+    decimals.beginDraw();
+    world.draw(gra, decimals);
+    decimals.endDraw();
+    gra.endDraw();
+    
+    shader.set("agentList", gra);
+    shader.set("decimals", decimals);
+    shader.set("maxAgents", MAX_AGENTS);
+    shader.set("nAgents", world.getNAgents());
+    
+    shader(shader);
+    noStroke();
+    rect(0, 0, width, height);  
+  }
 }
 
 boolean randomBool(){

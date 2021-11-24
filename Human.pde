@@ -70,14 +70,17 @@ class Human extends Mover{
       float childHue;
       if(random(1)>0.98){
         // Mutation
+        log(MUTATION);
         childHue = random(360);
       }else if(abs(hue-targetPartner.hue)==180){
+        log(OPPOSITE_COLORS_LOVE);
         float extra = randomBool() ? 180 : 0;  
         childHue = (hue+targetPartner.hue)/2 + extra;
       }else{
         // TODO: Get hue from both sides of the wheel
         childHue = (hue+targetPartner.hue)/2;
       }
+      log(BIRTH);
       humans.add(new Human(childHue, x, y, 2));
     }
   }

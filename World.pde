@@ -11,7 +11,7 @@ class World{
     time = new Time();
     foods = new ArrayList<Food>();    
     humans = new ArrayList<Human>();
-    for(int i=0; i<STARTING_AGENTS; i++) foods.add(new Food(random(width), random(height)));
+    for(int i=0; i<STARTING_AGENTS; i++) foods.add(new Food());
     for(int i=0; i<STARTING_AGENTS; i++) humans.add(new Human((180*i)%360, random(width), random(height),5));
   }
   
@@ -33,7 +33,7 @@ class World{
   }
   
   void draw(){
-    //for(Food food : foods) food.draw();
+    for(Food food : foods) food.draw();
     for (Human human : humans) human.display();   
   }
   
@@ -47,11 +47,11 @@ class World{
     switch (time.update()){
       case NEW_SEASON:
         season = (season+1)%4;
-        println("NEW SEASON: " + season);
       case NEW_DAY:
         newDay();
-        print(".");
-        break;
+      case NEW_HOUR:
+        newHour();
+        
     }
   }
   
@@ -59,12 +59,12 @@ class World{
     return humans.size();  
   }
   
-  void newDay(){
-    int MAX_NEW_FOOD = 15;
-    int newFood = int(humans.size()*random(0.9,1.6));
-    newFood = newFood > MAX_NEW_FOOD ? MAX_NEW_FOOD : newFood;
-    for(int i=0; i<newFood; i++) foods.add(new Food(random(width), random(height)));  
-    
+  void newHour(){
+    int nFood = int(random(2));
+    for(int i=0; i<nFood; i++) foods.add(new Food());  
+  }
+  
+  void newDay(){    
     Iterator<Human> it = humans.iterator();
     while(it.hasNext()){
       Human human = it.next();
