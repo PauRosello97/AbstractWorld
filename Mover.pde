@@ -55,7 +55,7 @@ class Mover extends PVector {
     velocity.limit(maxSpeed());
     this.add(velocity);
     acceleration.mult(0);
-    velocity.mult(0.999);
+    velocity.mult(0.99);
   }
   
   void display() {

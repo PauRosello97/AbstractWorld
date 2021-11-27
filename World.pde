@@ -5,7 +5,7 @@ class World{
   final int INITIAL_HUMANS = 4;
   boolean SHADER_MODE = false;
   int STARTING_AGENTS = 10;
-  int season = WINTER;
+  int season = SUMMER;
   
   World(){
     time = new Time();
@@ -32,12 +32,37 @@ class World{
     }
   }
   
+  PVector getCenter(){
+    float x = 0.;
+    float y = 0.;
+    for(Human human : humans){
+      x += human.x;
+      y += human.y;
+    }
+    
+    x /= humans.size();
+    y /= humans.size();
+    
+    x -= width/2;
+    y -= height/2;
+    
+    x /= width;
+    y /= height;
+    
+    PVector center = new PVector(-x, -y, 0.);
+    
+    
+    
+    return center;
+  }
+  
   void draw(){
     for(Food food : foods) food.draw();
     for (Human human : humans) human.display();   
   }
   
   void update(){
+    
     for (int i=0; i<humans.size(); i++) {
       Human human = humans.get(i);
       human.separate(humans);
@@ -45,13 +70,13 @@ class World{
     }
     switch (time.update()){
       case NEW_SEASON:
-        season = (season+1)%4;
         newSeason();
+      case NEW_MONTH:
+        newMonth();
       case NEW_DAY:
         newDay();
       case NEW_HOUR:
         newHour();
-        
     }
   }
   
@@ -60,12 +85,19 @@ class World{
   }
   
   void newHour(){
-    int nFood = int(random(4));
-    for(int i=0; i<nFood; i++) foods.add(new Food());  
+    if(season != WINTER){
+      int nFood = int(season == SUMMER ? random(2) : random(4));
+      for(int i=0; i<nFood; i++) foods.add(new Food());  
+    }
   }
   
   void newDay(){    
     Iterator<Human> it = humans.iterator();
+    
+    if(season == WINTER){
+      int nFood = int(random(24));
+      for(int i=0; i<nFood; i++) foods.add(new Food());
+    }
     
     log(NEW_DAY);
     int i = 0;
@@ -82,8 +114,16 @@ class World{
   }
   
   void newSeason(){
+    season = (season+1)%4;
     String[] seasonNames = {"WINTER", "SPRING", "SUMMER", "FALL"};
     log("---------------------------------------");
     log("[[ " + seasonNames[season] + " ARRIVED ]]");
+  }
+  
+  void newMonth(){
+    if(season == SUMMER){
+      humans.remove(0);
+      log("The oldest human died.");
+    }
   }
 }

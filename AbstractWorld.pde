@@ -5,7 +5,7 @@ Time time;
 PGraphics gra, decimals;
 PGraphics worldCanvas;
 PShader shader;
-final int MAX_AGENTS = 20;
+final int INITIAL_AGENTS = 20;
 final int WORLD_RES = 50;
 PImage cat;
 
@@ -19,8 +19,8 @@ void setup(){
   world = new World();
   
   shader = loadShader("shader.glsl");
-  gra = createGraphics(1, MAX_AGENTS);
-  decimals = createGraphics(1, MAX_AGENTS);
+  gra = createGraphics(1, INITIAL_AGENTS);
+  decimals = createGraphics(1, INITIAL_AGENTS);
 }
 
 void draw(){
@@ -28,7 +28,7 @@ void draw(){
   world.update();
   
   // Draw
-  if(DEBUGGING || keyPressed){
+  if(DEBUGGING){
     colorMode(HSB, 360, 100, 100);
     background(0, 0, 100);
     world.draw();
@@ -41,8 +41,9 @@ void draw(){
     
     shader.set("agentList", gra);
     shader.set("decimals", decimals);
-    shader.set("maxAgents", MAX_AGENTS);
+    shader.set("maxAgents", INITIAL_AGENTS);
     shader.set("nAgents", world.getNAgents());
+    shader.set("center", world.getCenter());
     
     shader(shader);
     noStroke();

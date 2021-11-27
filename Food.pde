@@ -6,9 +6,8 @@ class Food extends PVector{
   }
   
   Food(){
-    int margin = 50;
-    x = random(margin, width-margin);
-    y = random(margin, height-margin);
+    x = random(width);
+    y = random(height);
   }
   
   void draw(){

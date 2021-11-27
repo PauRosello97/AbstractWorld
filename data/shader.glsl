@@ -9,6 +9,7 @@ uniform sampler2D agentList;
 uniform sampler2D decimals;
 uniform int maxAgents;
 uniform int nAgents;
+uniform vec3 center;
 
 // From: https://gist.github.com/yiwenl/745bfea7f04c456e0101
 vec3 hsv2rgb(vec3 c)
@@ -25,9 +26,9 @@ void main( void ) {
     for(int i=0; i<nAgents; i++){
         vec4 agent = texture2D(agentList, vec2(0, i/float(maxAgents)));
         vec4 dec = texture2D(decimals, vec2(0, i/float(maxAgents)));
-        vec2 aP = vec2(agent.r+dec.r/255., agent.g+dec.g/255.);
+        vec2 aP = vec2(center.x+agent.x+dec.x/255., center.y+agent.y+dec.y/255.);
 
-        float hue = agent.b;
+        float hue = agent.z;
         vec3 aC = hsv2rgb(vec3(hue, 1., 1.));
         float d = distance(aP, position)*10.;
         c = mix(c,aC,d);

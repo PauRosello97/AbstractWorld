@@ -77,8 +77,8 @@ class Human extends Mover{
         float extra = randomBool() ? 180 : 0;  
         childHue = (hue+targetPartner.hue)/2 + extra;
       }else{
-        // TODO: Get hue from both sides of the wheel
-        childHue = (hue+targetPartner.hue)/2;
+        if(abs(hue - targetPartner.hue)<180) childHue = (hue+targetPartner.hue)/2;
+        else childHue = 180 + (hue+targetPartner.hue)/2;
       }
       log(int(hue) + " and " + int(targetPartner.hue) + " created " + int(childHue) + ". The population is now " + humans.size() + ".");
       humans.add(new Human(childHue, x, y, 2));
