@@ -19,8 +19,6 @@ void setup(){
   world = new World();
   
   shader = loadShader("shader.glsl");
-  gra = createGraphics(1, WORLD_RES);
-  decimals = createGraphics(1, WORLD_RES);
 }
 
 void draw(){
@@ -35,6 +33,8 @@ void draw(){
     world.draw();
   }else{
     colorMode(RGB, 255, 255, 255);
+    gra = createGraphics(1, WORLD_RES);
+    decimals = createGraphics(1, WORLD_RES);
     gra.beginDraw();
     decimals.beginDraw();
     world.draw(gra, decimals);

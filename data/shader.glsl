@@ -27,15 +27,16 @@ void main( void ) {
 
         vec4 agent = texture2D(agentList, vec2(0, i/float(maxAgents)));
         vec4 dec = texture2D(decimals, vec2(0, i/float(maxAgents)));
-        //vec2 aP = vec2(center.x+agent.x+dec.x/255., center.y+agent.y+dec.y/255.);
         vec2 aP = vec2(agent.x+dec.x/255., agent.y+dec.y/255.);
 
         if(aP.x != 0.){
+            aP -= vec2(center.x, center.y);
             float hue = agent.z;
             vec3 aC = hsv2rgb(vec3(hue, 1., 1.));
             float d = distance(aP, position)*10.;
             c = mix(c,aC,d);
         }
+        
     }
 	
 	gl_FragColor = vec4(c, 1.);
