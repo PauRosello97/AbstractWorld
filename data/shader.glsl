@@ -30,7 +30,7 @@ void main( void ) {
         vec2 aP = vec2(agent.x+dec.x/255., agent.y+dec.y/255.);
 
         if(aP.x != 0.){
-            aP -= vec2(center.x, center.y);
+            aP += vec2(center.x, center.y);
             float hue = agent.z;
             vec3 aC = hsv2rgb(vec3(hue, 1., 1.));
             float d = distance(aP, position)*10.;
