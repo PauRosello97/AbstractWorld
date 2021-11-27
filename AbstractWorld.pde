@@ -10,7 +10,7 @@ final int WORLD_RES = 50;
 PImage cat;
 
 final boolean DEBUGGING = false;
-final boolean LOGGING = true;;
+final boolean LOGGING = true;
 
 void setup(){
   size(900, 900, P2D);
@@ -19,8 +19,8 @@ void setup(){
   world = new World();
   
   shader = loadShader("shader.glsl");
-  gra = createGraphics(1, INITIAL_AGENTS);
-  decimals = createGraphics(1, INITIAL_AGENTS);
+  gra = createGraphics(1, WORLD_RES);
+  decimals = createGraphics(1, WORLD_RES);
 }
 
 void draw(){
@@ -28,11 +28,13 @@ void draw(){
   world.update();
   
   // Draw
-  if(DEBUGGING){
+  if(DEBUGGING || mousePressed){
+    resetShader();
     colorMode(HSB, 360, 100, 100);
     background(0, 0, 100);
     world.draw();
   }else{
+    colorMode(RGB, 255, 255, 255);
     gra.beginDraw();
     decimals.beginDraw();
     world.draw(gra, decimals);

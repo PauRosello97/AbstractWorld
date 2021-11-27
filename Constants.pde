@@ -1,6 +1,3 @@
-/*   Debugging and Logging   */
-
-
 /*   Objectives   */
 final int NO_OBJECTIVE = 0;
 final int FIND_FOOD = 1;

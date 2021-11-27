@@ -5,7 +5,7 @@ class World{
   final int INITIAL_HUMANS = 4;
   boolean SHADER_MODE = false;
   int STARTING_AGENTS = 10;
-  int season = SUMMER;
+  int season = SPRING;
   
   World(){
     time = new Time();
@@ -19,7 +19,7 @@ class World{
     for (int i=0; i<humans.size(); i++){
       Human human = humans.get(i);
       float pX = map(human.x, 0, width, 0, 255);
-      float pY = map(human.y, 0, height, 0, 255);
+      float pY = 255-map(human.y, 0, height, 0, 255);
       
       float decX = pX-int(pX);
       float decY = pY-int(pY);

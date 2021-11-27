@@ -111,7 +111,7 @@ class Human extends Mover{
         if(human.sex != sex){
           float hueDif = abs(human.hue-hue);
           if(hueDif>180) hueDif = 360-hueDif;
-          if(season!=SPRING ) score += 3 - map(hueDif, 0, 180, 0, 3);    
+          if(season!=SPRING) score += 3 - map(hueDif, 0, 180, 0, 3);    
           // The more energy, the higher the score.
           score += human.energy;
           // In winter just similar candidates are possible partners.
