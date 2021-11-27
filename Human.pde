@@ -101,13 +101,20 @@ class Human extends Mover{
   PVector findBestPartner(ArrayList<Human> humans, int season){
     int bestScore = 0;
     Human targetPartner = null;
+    
     for(Human human : humans){
-      int score = 1;
+      // Initial score for all candidates is 0.
+      int score = 0;
+      // You can't be your own partner (if you want to reproduce).
       if(this != human){
+        // And the sex should be different (if you want to naturally reproduce).
         if(human.sex != sex){
-          score += 1;
-          if(season!=SPRING && human.hue == hue) score +=3;    
+          float hueDif = abs(human.hue-hue);
+          if(hueDif>180) hueDif = 360-hueDif;
+          if(season!=SPRING ) score += 3 - map(hueDif, 0, 180, 0, 3);    
+          // The more energy, the higher the score.
           score += human.energy;
+          // In winter just similar candidates are possible partners.
           if(season == WINTER && abs(human.hue-hue)>10) score = 0;
         }
         

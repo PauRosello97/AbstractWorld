@@ -49,10 +49,10 @@ class World{
     x /= width;
     y /= height;
     
-    PVector center = new PVector(-x, -y, 0.);
+    x *= -.6;
+    y *= -.6;
     
-    
-    
+    PVector center = new PVector(x, y, 0.);   
     return center;
   }
   
