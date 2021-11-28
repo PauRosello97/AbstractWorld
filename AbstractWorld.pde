@@ -3,14 +3,7 @@ import java.util.*;
 World world;
 Time time;
 PGraphics gra, decimals;
-PGraphics worldCanvas;
 PShader shader;
-final int INITIAL_AGENTS = 20;
-final int WORLD_RES = 50;
-PImage cat;
-
-final boolean DEBUGGING = false;
-final boolean LOGGING = true;
 
 void setup(){
   size(900, 900, P2D);
@@ -43,7 +36,7 @@ void draw(){
     
     shader.set("agentList", gra);
     shader.set("decimals", decimals);
-    shader.set("maxAgents", INITIAL_AGENTS);
+    shader.set("maxAgents", DISPLAYING_AGENTS);
     shader.set("nAgents", world.getNAgents());
     shader.set("center", world.getCenter());
     

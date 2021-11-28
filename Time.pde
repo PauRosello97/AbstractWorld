@@ -10,8 +10,7 @@ class Time{
   final int MONTH_DURATION = DAY_DURATION*10;
   final int SEASON_DURATION = MONTH_DURATION*3;
   
-  Time(){
-  }
+  Time(){}
   
   int update(){
     time = millis();  

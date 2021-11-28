@@ -22,3 +22,8 @@ final int SUMMER = 2;
 // In SUMMER every hour appears [0-3] food
 final int FALL = 3;
 // In FALL every hour appears [0-3] food
+
+final int DISPLAYING_AGENTS = 20;
+final int WORLD_RES = 50;
+final boolean DEBUGGING = false;
+final boolean LOGGING = true;
