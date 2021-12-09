@@ -1,16 +1,22 @@
 import java.util.*;
+import oscP5.*;
+import netP5.*;
 
 World world;
 Time time;
-PGraphics gra, decimals;
+PGraphics agentsList, decimals;
 PShader shader;
+OscP5 oscP5;
+NetAddress remoteLocation;
 
 void setup(){
   size(900, 900, P2D);
   ((PGraphicsOpenGL)g).textureSampling(2);
   
-  world = new World();
+  oscP5 = new OscP5(this, 9999);
+  remoteLocation = new NetAddress("127.0.0.1", 9999);
   
+  world = new World();
   shader = loadShader("shader.glsl");
 }
 
@@ -26,17 +32,17 @@ void draw(){
     world.draw();
   }else{
     colorMode(RGB, 255, 255, 255);
-    gra = createGraphics(1, WORLD_RES);
+    agentsList = createGraphics(1, WORLD_RES);
     decimals = createGraphics(1, WORLD_RES);
-    gra.beginDraw();
+    agentsList.beginDraw();
     decimals.beginDraw();
-    world.draw(gra, decimals);
+    world.draw(agentsList, decimals);
     decimals.endDraw();
-    gra.endDraw();
+    agentsList.endDraw();
     
-    shader.set("agentList", gra);
+    shader.set("agentList", agentsList);
     shader.set("decimals", decimals);
-    shader.set("maxAgents", DISPLAYING_AGENTS);
+    shader.set("maxAgents", world.getNAgents());
     shader.set("nAgents", world.getNAgents());
     shader.set("center", world.getCenter());
     

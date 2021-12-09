@@ -32,9 +32,9 @@ void main( void ) {
         if(aP.x != 0.){
             aP += vec2(center.x, center.y);
             float hue = agent.z;
-            vec3 aC = hsv2rgb(vec3(hue, 1., 1.));
+            vec3 agentC = hsv2rgb(vec3(hue, 1., 1.));
             float d = distance(aP, position)*10.;
-            c = mix(c,aC,d);
+            c = mix(c,agentC,d);
         }
         
     }

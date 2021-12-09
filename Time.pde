@@ -12,6 +12,9 @@ class Time{
   
   Time(){}
   
+  
+  // Local date time?
+  
   int update(){
     time = millis();  
     if(time-lastSeason>SEASON_DURATION){
