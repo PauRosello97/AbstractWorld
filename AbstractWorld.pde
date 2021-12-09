@@ -1,20 +1,13 @@
 import java.util.*;
-import oscP5.*;
-import netP5.*;
 
 World world;
 Time time;
 PGraphics agentsList, decimals;
 PShader shader;
-OscP5 oscP5;
-NetAddress remoteLocation;
 
 void setup(){
   size(900, 900, P2D);
   ((PGraphicsOpenGL)g).textureSampling(2);
-  
-  oscP5 = new OscP5(this, 9999);
-  remoteLocation = new NetAddress("127.0.0.1", 9999);
   
   world = new World();
   shader = loadShader("shader.glsl");

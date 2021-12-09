@@ -108,7 +108,6 @@ class World{
       if(human.isDead()){
         foods.add(new Food(human.x, human.y));
         it.remove();
-        sendTrigger("death");
         log("RIP n" + i + " with color " + int(human.hue) + ". " + humans.size() + " humans alive.");
       }
     }

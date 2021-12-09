@@ -58,7 +58,6 @@ class Human extends Mover{
   void eatTargetFood(ArrayList<Food> foods){
     foods.remove(target);
     energy++;
-    sendTrigger("eat");
   }
   
   void reproduce(ArrayList<Human> humans){
@@ -84,7 +83,6 @@ class Human extends Mover{
       log(int(hue) + " and " + int(targetPartner.hue) + " created " + int(childHue) + ". The population is now " + humans.size() + ".");
       humans.add(new Human(childHue, x, y, 2));
     }
-    sendTrigger("birth");
   }
   
   PVector findClosestFood(ArrayList<Food> foods){
