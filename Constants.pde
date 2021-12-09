@@ -26,4 +26,4 @@ final int FALL = 3;
 final int DISPLAYING_AGENTS = 20;
 final int WORLD_RES = 50;
 final boolean DEBUGGING = false;
-final boolean LOGGING = true;
+final boolean LOGGING = false;

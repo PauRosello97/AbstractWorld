@@ -7,6 +7,8 @@ PShader shader;
 
 void setup(){
   size(900, 900, P2D);
+  
+  // Change interpolation mode to "Nearest node"
   ((PGraphicsOpenGL)g).textureSampling(2);
   
   world = new World();
@@ -19,23 +21,28 @@ void draw(){
   
   // Draw
   if(DEBUGGING || mousePressed){
+    // If debugging, reset some parameters
     resetShader();
     colorMode(HSB, 360, 100, 100);
     background(0, 0, 100);
+    // and draw the world.
     world.draw();
   }else{
     colorMode(RGB, 255, 255, 255);
+    
     agentsList = createGraphics(1, WORLD_RES);
     decimals = createGraphics(1, WORLD_RES);
+    
+    // Draw the graphics
     agentsList.beginDraw();
     decimals.beginDraw();
     world.draw(agentsList, decimals);
     decimals.endDraw();
     agentsList.endDraw();
     
+    // Set the uniforms
     shader.set("agentList", agentsList);
     shader.set("decimals", decimals);
-    shader.set("maxAgents", world.getNAgents());
     shader.set("nAgents", world.getNAgents());
     shader.set("center", world.getCenter());
     

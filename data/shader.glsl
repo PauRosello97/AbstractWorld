@@ -7,7 +7,6 @@ precision mediump float;
 uniform vec2 resolution;
 uniform sampler2D agentList;
 uniform sampler2D decimals;
-uniform int maxAgents;
 uniform int nAgents;
 uniform vec3 center;
 
@@ -25,8 +24,8 @@ void main( void ) {
     		    
     for(int i=0; i<nAgents; i++){
 
-        vec4 agent = texture2D(agentList, vec2(0, i/float(maxAgents)));
-        vec4 dec = texture2D(decimals, vec2(0, i/float(maxAgents)));
+        vec4 agent = texture2D(agentList, vec2(0, i/float(nAgents)));
+        vec4 dec = texture2D(decimals, vec2(0, i/float(nAgents)));
         vec2 aP = vec2(agent.x+dec.x/255., agent.y+dec.y/255.);
 
         if(aP.x != 0.){
